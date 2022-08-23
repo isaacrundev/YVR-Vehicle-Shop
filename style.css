@@ -23,6 +23,14 @@ header {
   text-align: center;
 }
 
+.logo a:hover,
+a:visited,
+a:link,
+a:active {
+  text-decoration: none;
+  color: inherit;
+}
+
 .search {
   margin: 10px 3px 0px 3px;
 }
@@ -53,6 +61,7 @@ header {
 } */
 
 .products {
+  width: 100%;
   background-color: #c8e0f4;
   padding: 20px;
   display: flex;
@@ -80,8 +89,12 @@ header {
   object-fit: cover;
   object-position: center bottom;
 }
+.promos {
+  font-weight: bold;
+  color: #c222af;
+}
 
-.item .original_price {
+.original_price {
   text-decoration: line-through;
   color: red;
 }
@@ -98,12 +111,40 @@ footer {
 }
 
 @media only screen and (min-width: 640px) {
+  .search {
+    margin: 10px 20% 0px 20%;
+  }
   .products {
-    flex-direction: row;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
   }
   .item {
+    height: 100%;
   }
 }
 
 @media only screen and (min-width: 1008px) {
+  .logo {
+    text-align: start;
+    margin-left: 10px;
+  }
+  .search {
+    margin: 10px 30% 0px 30%;
+  }
+  .products {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+  }
+  .item {
+    height: 100%;
+    width: 300px;
+  }
+
+  #item1 .product_img img {
+    object-position: center 75%;
+  }
+
+  #item4 .product_img img {
+    object-position: center center;
+  }
 }
