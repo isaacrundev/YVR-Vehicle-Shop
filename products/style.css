@@ -95,7 +95,6 @@ main {
 .slides {
   margin-top: 5px;
   margin-bottom: 5px;
-  :10px ;
   width: 100%;
   display: flex;
   overflow-x: auto;
@@ -151,14 +150,14 @@ img {
 
 .buttons {
   display: flex;
-  /* flex-wrap: nowrap; */
+  flex-wrap: nowrap;
   flex-direction: column;
 }
 
 .buttons button {
   width: 100%;
   border-radius: 5px;
-  padding: 8px;
+  padding: auto 8px;
   margin: 5px;
   background-color: orange;
 }
