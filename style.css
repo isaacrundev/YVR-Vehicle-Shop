@@ -9,7 +9,6 @@ body {
   font-family: Arial, Helvetica, sans-serif;
   color: #000;
   height: 100%;
-  width: 100%;
 }
 
 header {
@@ -64,12 +63,10 @@ a:active {
 
 .products {
   width: 100%;
-  height: 100%;
   background-color: #c8e0f4;
   padding: 20px;
   display: flex;
   flex-wrap: wrap;
-  flex-direction: row;
 }
 
 .item {
@@ -122,6 +119,7 @@ footer {
   .products {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
+    height: 100%;
   }
   .item {
     height: 100%;
@@ -139,10 +137,11 @@ footer {
   .products {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr 1fr;
+    height: 100%;
   }
   .item {
     height: 100%;
-    width: 300px;
+    width: 250px;
   }
 
   #item1 .product_img img {
