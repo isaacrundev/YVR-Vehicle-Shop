@@ -8,6 +8,9 @@ html,
 body {
   font-family: Arial, Helvetica, sans-serif;
   color: #000;
+}
+
+body {
   height: 100%;
 }
 
@@ -65,14 +68,16 @@ a:active {
   width: 100%;
   background-color: #c8e0f4;
   padding: 20px;
-  display: flex;
-  flex-wrap: wrap;
+  /* display: flex;
+  flex-wrap: wrap; */
+  display: grid;
+  grid-template-columns: 1fr;
 }
 
 .item {
   display: block;
   text-align: center;
-  margin: auto;
+  margin: 0 auto;
   width: 200px;
   padding: 15px;
 }
