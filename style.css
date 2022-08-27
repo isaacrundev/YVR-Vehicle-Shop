@@ -82,6 +82,10 @@ a:active {
   padding: 15px;
 }
 
+.hover_effect:hover {
+  color: white;
+}
+
 .product_img {
   height: 180px;
   overflow: hidden;
@@ -94,10 +98,6 @@ a:active {
   height: 100%;
   object-fit: cover;
   object-position: center bottom;
-}
-
-.hover_effect:hover {
-  color: white;
 }
 
 .promos {
