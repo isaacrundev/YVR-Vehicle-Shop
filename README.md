@@ -8,6 +8,8 @@ Image slider: https://codepen.io/chriscoyier/pen/XwbNwX?editors=0100
 
 Pexels https://www.pexels.com/
 
+Coolors https://coolors.co/
+
 Libraries/technology/ api you used:
 
 HTML
