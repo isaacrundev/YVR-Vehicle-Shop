@@ -19,12 +19,24 @@ header {
   background-color: #508aa8;
   width: 100%;
   height: 95px;
-  padding: 8px 1px 0px 1px;
+  padding: 1vh 1px;
+  display: flex;
+  flex-direction: row;
+}
+
+#promotion {
+  width: 100%;
+  height: fit-content;
+  text-align: center;
+  padding: 2vh;
+  background-color: #000;
+  color: white;
 }
 
 .logo {
-  margin-top: 10px;
+  min-width: 15vw;
   text-align: center;
+  flex-grow: 2;
 }
 
 .logo a:hover,
@@ -36,21 +48,84 @@ a:active {
 }
 
 .search {
-  margin: 10px 3px 0px 3px;
+  flex-grow: 6;
+  text-align: center;
+  padding-top: 5.5vh;
 }
 
 .search input {
-  width: 80%;
+  width: 30vw;
   height: 35px;
   border-radius: 8px;
 }
 .search button {
   color: #fff;
   background: #4a306d;
-  width: 20%;
+  width: 5vw;
   height: 35px;
   border-radius: 8px;
 }
+
+#shopping-cart {
+  width: 100%;
+  flex-grow: 2;
+  background-color: transparent;
+  width: fit-content;
+  height: fit-content;
+  border-color: transparent;
+  color: white;
+  font-size: medium;
+}
+
+#shopping-cart:hover {
+  cursor: pointer;
+}
+
+#cart-menu {
+  display: none;
+  position: absolute;
+  top: 5vh;
+  right: 0;
+  /* overflow: visible; */
+  min-width: 15vw;
+  min-height: 25vh;
+  border: 2px solid white;
+  flex-direction: column;
+  justify-content: end;
+}
+
+#item-area {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 8;
+}
+
+#item-list {
+  list-style-type: none;
+}
+
+#cart-total {
+  text-align: right;
+  flex-grow: 1;
+}
+
+#fn-area {
+  margin: 0 auto;
+  padding: 0 5vw;
+  flex-grow: 1;
+}
+
+.cart-item {
+  width: 100%;
+}
+
+.item-div {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  color: white;
+}
+
 /* .menu {
   background-color: #4a306d;
   display: flex;
@@ -126,9 +201,9 @@ footer {
     height: 100%;
   }
 
-  .search {
+  /* .search {
     margin: 10px 20% 0px 20%;
-  }
+  } */
   .products {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
@@ -148,9 +223,9 @@ footer {
     text-align: start;
     margin-left: 10px;
   }
-  .search {
+  /* .search {
     margin: 10px 30% 0px 30%;
-  }
+  } */
   .products {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr 1fr;

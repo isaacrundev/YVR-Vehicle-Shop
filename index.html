@@ -7,10 +7,28 @@
       name="viewport"
       content="width=device-width, height=device-height, initial-scale=1.0"
     />
+    <script src="https://unpkg.com/axios@0.27.2/dist/axios.min.js"></script>
+    <script src="index.js" defer></script>
     <title>YVR Vehicle Shop</title>
     <link rel="stylesheet" href="style.css" />
   </head>
   <body>
+    <template id="cart-item">
+      <div class="item-div">
+        <div class="cart-item-product-name">Product Name</div>
+        <div class="cart-item-qty">Qty</div>
+        <div class="cart-item-price">$</div>
+        <button class="cart-item-remove">Remove</button>
+      </div>
+    </template>
+    <div id="cart-menu">
+      <div id="item-area"><ul id="item-list"></ul></div>
+      <div id="cart-total">$0</div>
+      <div id="fn-area">
+        <button id="clear-cart">Clear</button>
+        <button id="checkout-cart">Checkout</button>
+      </div>
+    </div>
     <header>
       <div class="logo">
         <h2><a href="index.html">YVR Vehicle Shop</a></h2>
@@ -20,11 +38,14 @@
         <p>Contact</p>
       </div> -->
       <div class="search">
-        <input type="text" placeholder=" Looking for something?" /><button>
-          Search
-        </button>
+        <input type="text" placeholder=" Looking for something?" />
+        <button>Search</button>
       </div>
+      <button id="shopping-cart">Shopping Cart (0)</button>
     </header>
+    <section id="promotion">
+      Free-sheeping when order is $10000 or above!
+    </section>
     <div class="products">
       <div id="item1" class="item">
         <div class="hover_effect">
@@ -39,6 +60,7 @@
             <p class="product_price">$200</p></a
           >
         </div>
+        <button class="add-to-cart">Add to cart</button>
       </div>
       <div id="item2" class="item">
         <div class="hover_effect">
@@ -55,6 +77,7 @@
             <p class="promos">BUY 3 GET 1 FREE!</p></a
           >
         </div>
+        <button class="add-to-cart">Add to cart</button>
       </div>
       <div id="item3" class="item">
         <div class="hover_effect">
@@ -69,6 +92,7 @@
             <p class="product_price">$300</p>
           </a>
         </div>
+        <button class="add-to-cart">Add to cart</button>
       </div>
       <div id="item4" class="item">
         <div class="hover_effect">
@@ -84,6 +108,7 @@
             <p class="product_price">$500</p></a
           >
         </div>
+        <button class="add-to-cart">Add to cart</button>
       </div>
       <div id="item5" class="item">
         <div class="hover_effect">
@@ -99,6 +124,7 @@
             <p class="product_price">$800</p></a
           >
         </div>
+        <button class="add-to-cart">Add to cart</button>
       </div>
       <div id="item6" class="item">
         <div class="hover_effect">
@@ -113,6 +139,7 @@
             <p class="product_price">$2000</p></a
           >
         </div>
+        <button class="add-to-cart">Add to cart</button>
       </div>
       <div id="item7" class="item">
         <div class="hover_effect">
@@ -127,6 +154,7 @@
             <p class="product_price">$2500</p></a
           >
         </div>
+        <button class="add-to-cart">Add to cart</button>
       </div>
     </div>
 
