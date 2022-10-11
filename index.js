@@ -1,15 +1,18 @@
-const addToCartBtns = document.querySelectorAll(".add-to-cart");
+const addToCartBtns = Array.from(document.querySelectorAll(".add-to-cart"));
+const productNameElement = document.querySelector(".cart-item-product-name");
+const productQtyElement = document.querySelector(".cart-item-qty");
+const productPriceElement = document.querySelector(".cart-item-price");
 const shoppingCart = document.querySelector("#shopping-cart");
-const cartMenu = document.querySelector("#cart-menu");
-const itemList = document.querySelector("#item-list");
-const cartItem = document.querySelector("#cart-item");
+const cartMenuElement = document.querySelector("#cart-menu");
+const itemListElement = document.querySelector("#item-list");
+const cartItemElement = document.querySelector("#cart-item");
+let removeItemBtn = Array.from(document.querySelectorAll(".cart-item-remove"));
 const clearCartBtn = document.querySelector("#clear-cart");
 const itemDiv = document.querySelector(".item-div");
-const removeItemBtn = document.querySelector(".cart-item-remove");
-const amountInTotal = document.querySelector("#cart-total");
+const amountInTotalElement = document.querySelector("#cart-total");
 
-let isOpen = false;
 let productData = [];
+let isOpen = false;
 let cartQtyTotal = 0;
 let cartAmtTotal = 0;
 
@@ -18,7 +21,7 @@ function sendHttpReq(method, url, data) {
 }
 
 function fetchProductProperties() {
-  sendHttpReq("GET", "https://jsonblob.com/api/1027702040876564480")
+  sendHttpReq("GET", "https://jsonblob.com/api/1028730651519762432")
     .then(({ data }) => {
       productData = data.vehicles;
     })
@@ -26,65 +29,102 @@ function fetchProductProperties() {
 }
 
 // cart menu toggle
-shoppingCart.addEventListener("click", function (e) {
-  e.preventDefault();
+shoppingCart.addEventListener("click", () => {
   if (isOpen == false && cartQtyTotal > 0) {
-    cartMenu.style.display = "flex";
+    cartMenuElement.style.display = "flex";
     isOpen = true;
+    removeItemBtn = Array.from(document.querySelectorAll(".cart-item-remove"));
+    removeItem(productData);
   } else {
-    cartMenu.style.display = "none";
+    cartMenuElement.style.display = "none";
     isOpen = false;
   }
 });
 
 // add to cart button
 for (let i = 0; i < addToCartBtns.length; i++) {
-  let cartBtn = addToCartBtns[i];
-  cartBtn.addEventListener("click", function (e) {
-    e.preventDefault();
-    productData[i].qty += 1;
-    cartQtyTotal += 1;
-    cartAmtTotal += productData[i].price;
-    amountInTotal.innerHTML = "$" + cartAmtTotal;
-    const cartItemClone = document.importNode(cartItem.content, true);
-    cartItemClone.querySelector(".cart-item-product-name").textContent =
-      productData[i].name;
-    cartItemClone.querySelector(".cart-item-qty").textContent =
-      productData[i].qty;
-    cartItemClone.querySelector(".cart-item-price").textContent =
-      productData[i].price;
-    itemList.appendChild(cartItemClone);
+  addToCartBtns[i].addEventListener("click", () => {
+    cartCount(productData[i]);
+    totalAmt(productData[i]);
+    addToCart();
+  });
+}
 
-    // change cart button numbers and fonts bold
-    if (cartQtyTotal > 0) {
-      shoppingCart.style.fontWeight = "bold";
-      shoppingCart.textContent = `Shopping Cart (${cartQtyTotal})`;
+function addToCart() {
+  itemListElement.innerHTML = "";
+  productData.forEach((i) => {
+    itemListElement.innerHTML += `<div class="item-div" id="${i.name}">
+  <div class="cart-item-product-name">${i.name}</div>
+  <div class="cart-item-qty">${i.qty}</div>
+  <div class="cart-item-price">$${i.price * i.qty}</div>
+  <button class="cart-item-remove">Remove</button>
+  </div>`;
+    if (i.qty == 0) {
+      document.getElementById(`${i.name}`).style.display = "none";
     }
   });
 }
 
+// counting system of shoppingCart
+function cartCount(product) {
+  cartQtyTotal += 1;
+  product.qty += 1;
+  shoppingCart.style.fontWeight = "bold";
+  shoppingCart.textContent = `Shopping Cart (${cartQtyTotal})`;
+}
+
+// total amount of shopping cart
+function totalAmt(product) {
+  cartAmtTotal += product.price;
+  amountInTotalElement.textContent = "$" + cartAmtTotal;
+}
+
 // clear cart
-clearCartBtn.addEventListener("click", function (e) {
-  e.preventDefault();
+clearCartBtn.addEventListener("click", () => {
   if (confirm("Are you sure to clear all items in shopping cart?") == true) {
-    if (confirm("Really? 🥺") == true) {
-      while (itemList.hasChildNodes()) {
-        itemList.removeChild(itemList.firstChild);
+    if (confirm("Really?🥺") == true) {
+      while (itemListElement.hasChildNodes()) {
+        itemListElement.removeChild(itemListElement.firstChild);
       }
       for (let i = 0; i < productData.length; i++) {
         productData[i].qty = 0;
       }
       cartQtyTotal = 0;
       cartAmtTotal = 0;
-      amountInTotal.innerHTML = "$" + cartAmtTotal;
+      amountInTotalElement.textContent = "$" + cartAmtTotal;
       shoppingCart.style.fontWeight = "normal";
       shoppingCart.textContent = `Shopping Cart (${cartQtyTotal})`;
-      cartMenu.style.display = "none";
+      cartMenuElement.style.display = "none";
       isOpen = false;
     }
   }
 });
 
 // remove individual item
+function removeItem(productData) {
+  removeItemBtn.map((i) => {
+    i.addEventListener("click", () => {
+      if (
+        confirm(`Are you sure to remove this item in shopping cart?🥺`) == true
+      ) {
+        const removeName = i.parentElement.children[0].innerText;
+        const searchObj = productData.find((each) => each.name == removeName);
+        let removeQty = i.parentElement.children[1].innerText;
+        const removePrice = i.parentElement.children[2].innerText;
+        cartQtyTotal -= parseInt(removeQty);
+        cartAmtTotal -= parseInt(removePrice.substr(1));
+        i.parentElement.remove();
+        shoppingCart.textContent = `Shopping Cart (${cartQtyTotal})`;
+
+        if (cartQtyTotal == 0 || cartAmtTotal == 0) {
+          shoppingCart.style.fontWeight = "normal";
+          shoppingCart.textContent = `Shopping Cart (${cartQtyTotal})`;
+          cartMenuElement.style.display = "none";
+          isOpen = false;
+        }
+      }
+    });
+  });
+}
 
 window.addEventListener("load", fetchProductProperties);
