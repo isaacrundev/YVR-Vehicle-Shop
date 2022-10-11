@@ -34,7 +34,7 @@ shoppingCart.addEventListener("click", () => {
     cartMenuElement.style.display = "flex";
     isOpen = true;
     removeItemBtn = Array.from(document.querySelectorAll(".cart-item-remove"));
-    removeItem(productData);
+    removeItem();
   } else {
     cartMenuElement.style.display = "none";
     isOpen = false;
@@ -101,21 +101,22 @@ clearCartBtn.addEventListener("click", () => {
 });
 
 // remove individual item
-function removeItem(productData) {
+function removeItem() {
   removeItemBtn.map((i) => {
     i.addEventListener("click", () => {
       if (
         confirm(`Are you sure to remove this item in shopping cart?🥺`) == true
       ) {
         const removeName = i.parentElement.children[0].innerText;
-        const searchObj = productData.find((each) => each.name == removeName);
         let removeQty = i.parentElement.children[1].innerText;
         const removePrice = i.parentElement.children[2].innerText;
         cartQtyTotal -= parseInt(removeQty);
         cartAmtTotal -= parseInt(removePrice.substr(1));
         i.parentElement.remove();
+        productData.map((i) => {
+          if (i.name == removeName) i.qty -= 1;
+        });
         shoppingCart.textContent = `Shopping Cart (${cartQtyTotal})`;
-
         if (cartQtyTotal == 0 || cartAmtTotal == 0) {
           shoppingCart.style.fontWeight = "normal";
           shoppingCart.textContent = `Shopping Cart (${cartQtyTotal})`;
